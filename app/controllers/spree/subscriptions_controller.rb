@@ -16,8 +16,8 @@ class Spree::SubscriptionsController < Spree::BaseController
 
       end
 
-      if @mc_member
-        @errors << t('that_address_is_already_subscribed')
+      if @mc_member['success'] == 1
+        @errors << 'SpreeMailChimp: User is already subscribed to this list'
       else
         begin
           gibbon.list_subscribe({ id: Spree::Config.get(:mailchimp_list_id), email_address: params[:email] })
